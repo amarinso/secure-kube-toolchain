@@ -76,7 +76,9 @@ stages:
       if [ -f deployment.yml ]; then
           #Update deployment.yml with image name
           echo "UPDATING DEPLOYMENT MANIFEST:"
-          sed -i "s~^\([[:blank:]]*\)image:.*$~\1image: ${FULL_REPOSITORY_NAME}~" deployment.yml
+          sed -i "s~FULL_REPOSITORY_NAME~${FULL_REPOSITORY_NAME}~" deployment.yml
+          sed -i "s~^\([[:blank:]]*\)name: job-name.*$~\1name: job-${APPLICATION_VERSION}~" deployment.yml
+
           cat deployment.yml
           cp deployment.yml $ARCHIVE_DIR/
       else 
